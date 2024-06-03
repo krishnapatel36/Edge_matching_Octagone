@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Manipulation</title>
+<style>
+    /* body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    } */
+    .image-container {
+        justify-content: center;    
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+    }
+    .image {
+        display: block;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body style="text-align: center;">
+    <h1 style="text-align: center;">Center For Creative Learning</h1>
+    <h1 style="text-align: center;">IIT GN</h1>
+    <div class="image-container">
+        <img src="1.png" class="image" id="image1" draggable="true">
+        <img src="2.png" class="image" id="image2" draggable="true">
+        <img src="3.png" class="image" id="image3" draggable="true">
+        <img src="4.png" class="image" id="image4" draggable="true">
+        <img src="5.png" class="image" id="image5" draggable="true">
+        <img src="6.png" class="image" id="image6" draggable="true">
+        <img src="7.png" class="image" id="image7" draggable="true">
+        <img src="8.png" class="image" id="image8" draggable="true">
+        <img src="9.png" class="image" id="image9" draggable="true">
+    </div>
+    <br><br><br>
+    <input type="button" id="solve" value="View Solutions"/>
+
+<script>
+    document.getElementById('solve').addEventListener('click', function () {
+                window.location.href = 'solution.html';  // Replace 'anotherPage.html' with the URL of the page you want to open 
+            });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let images = document.querySelectorAll('.image');
+
+        // Add rotation on click
+        images.forEach(image => {
+            image.addEventListener('click', function() {
+                let currentRotation = image.style.transform.replace(/[^0-9\-]/g, '');
+                let newRotation = (currentRotation ? parseInt(currentRotation, 10) : 0) + 45;
+                image.style.transform = `rotate(${newRotation}deg)`;
+            });
+
+            // Add drag and drop
+            image.addEventListener('dragstart', function(event) {
+                event.dataTransfer.setData('text/plain', image.id);
+            });
+
+            image.addEventListener('dragover', function(event) {
+                event.preventDefault();
+            });
+
+            image.addEventListener('drop', function(event) {
+                event.preventDefault();
+                let data = event.dataTransfer.getData('text/plain');
+                let draggedElement = document.getElementById(data);
+                let targetElement = event.target;
+
+                if (targetElement.classList.contains('image')) {
+                    let tempSrc = targetElement.src;
+                    targetElement.src = draggedElement.src;
+                    draggedElement.src = tempSrc;
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
