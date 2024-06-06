@@ -67,7 +67,7 @@ At position (0, 1): Numbers = [7, 4, 3, 8, 5, 2, 6, 1]
 
 2. **Run the Script**: Execute the script to solve the puzzle and print the solutions.
    ```
-   python octagone_edge_matching_puzzle.py
+   python octagone_edge_matching.py
    ```
 
 3. **Modify Constraints**: Adjust the constraints if necessary to explore different arrangements or solutions.
